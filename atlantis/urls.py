@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from planner.views import home
+from planner.views import home, BudgetCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
+    path('new_budget', BudgetCreateView.as_view())
 ]

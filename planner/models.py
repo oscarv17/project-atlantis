@@ -40,8 +40,8 @@ class Income(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 class Budget(models.Model):
-    expenses = models.ForeignKey(Expense, on_delete=models.CASCADE)
-    incomes = models.ForeignKey(Income, on_delete=models.CASCADE)
+    expenses = models.ManyToManyField(Expense)
+    incomes = models.ManyToManyField(Income)
     planned_income = models.ManyToManyField(PlannedIncome)
     expense_income = models.ManyToManyField(PlannedExpense)
     month = models.IntegerField()

@@ -1,32 +1,37 @@
-from django.shortcuts import render
+from django.core import serializers
+from django.http import HttpResponseNotFound, JsonResponse
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView
 
-from .models import Budget
+from .models import Budget, Category
 
 def home(request):
     return render(request, 'planner/home.html')
 
+def budget_view(request, id):
+    budget = get_object_or_404(Budget, pk=id)
+    month = budget.get_month_name()
+    planned_expenses = budget.get_planned_expeses()
+    planned_incomes = budget.get_planned_incomes()
+    context = {'budget': budget, 'month': month, 
+               'planned_expenses': planned_expenses, 'planned_incomes': planned_incomes}
+    return render(request, 'planner/budget.html', context)
+
+def add_expenses_and_incomes(request):
+    return render(request, 'planner/add_elements.html')
+
+def get_categories(request):
+    if request.is_ajax and request.method == 'GET':
+        action = request.GET.get('action')
+        if action == 'expenses':
+            data = Category.objects.get_category_ex()
+        else:
+            data = Category.objects.get_category_in()
+        # serialized_data = serializers.serialize('json', data)
+        return JsonResponse({'categories': list(data)})
+    return HttpResponseNotFound("Page not found")
 
 class BudgetCreateView(CreateView):
     model = Budget
-    fields = ('month', 'initial_amoumt', 'expense_income', 'planned_income')
+    fields = ('month', 'initial_amoumt', 'planned_expense', 'planned_income')
     template_name = 'planner/new_budget.html'
-
-
-def new_budget(request):
-    MONTHS = {
-        1: 'Enero',
-        2: 'Febrero',
-        3: 'Marzo',
-        4: 'Abril',
-        5: 'Mayo',
-        6: 'Junio',
-        7: 'Julio',
-        8: 'Agosto',
-        9: 'Septiembre',
-        10: 'Octubre',
-        11: 'Noviembre',
-        12: 'Diciembre'
-    }
-
-    return render(request, 'planner/new_budget.html', {'months': MONTHS})

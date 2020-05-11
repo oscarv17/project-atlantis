@@ -14,12 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 
-from planner.views import home, BudgetCreateView
+from planner.views import home, BudgetCreateView, budget_view, add_expenses_and_incomes, get_categories
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),
-    path('new_budget', BudgetCreateView.as_view())
+    path('', home, name='home'),
+    path('new_budget', BudgetCreateView.as_view(), name='new_budget'),
+    path('budget/<int:id>', budget_view, name='budget'),
+    path('add_movement', add_expenses_and_incomes, name='add'),
+    re_path(r'^ajax/get/categories/$', get_categories, name='get_cat')
 ]

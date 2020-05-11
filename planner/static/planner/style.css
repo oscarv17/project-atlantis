@@ -6,3 +6,11 @@
     color: #2E4053;
     font-weight: bold;
 }
+
+.headlines {
+    color: #2E4053;
+}
+
+.top-buffer { 
+    margin-top:20px; 
+}

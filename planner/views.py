@@ -1,8 +1,10 @@
 from django.core import serializers
-from django.http import HttpResponseNotFound, JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
+from django.shortcuts import render, get_object_or_404, render
+from django.template.loader import render_to_string
 from django.views.generic import CreateView
 
+from .forms import IncomeForm
 from .models import Budget, Category
 
 def home(request):
@@ -21,14 +23,16 @@ def add_expenses_and_incomes(request):
     return render(request, 'planner/add_elements.html')
 
 def get_categories(request):
-    if request.is_ajax and request.method == 'GET':
-        action = request.GET.get('action')
-        if action == 'expenses':
-            data = Category.objects.get_category_ex()
-        else:
-            data = Category.objects.get_category_in()
-        # serialized_data = serializers.serialize('json', data)
-        return JsonResponse({'categories': list(data)})
+    form = IncomeForm()
+    if request.is_ajax() and request.method == 'GET':
+        # action = request.GET.get('action')
+        # if action == 'expenses':
+        #     data = Category.objects.get_category_ex()
+        # else:
+        #     data = Category.objects.get_category_in()
+        # # serialized_data = serializers.serialize('json', data)
+        html = render_to_string('planner/add_element_snippet.html', {'form': form})
+        return HttpResponse(html)
     return HttpResponseNotFound("Page not found")
 
 class BudgetCreateView(CreateView):

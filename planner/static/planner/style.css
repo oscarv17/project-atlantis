@@ -14,3 +14,14 @@
 .top-buffer { 
     margin-top:20px; 
 }
+
+.move-button {
+    background-color: #1ABC9C;
+    border-color: #1ABC9C;
+    float: right;
+}
+
+.move-button:hover {
+    background-color: #01A182;
+    border-color: #01A182;
+}

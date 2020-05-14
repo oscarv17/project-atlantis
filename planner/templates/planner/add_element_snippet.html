@@ -1,24 +1,17 @@
 {% load crispy_forms_tags %}
 <td>
-    <div class="form-group">
-        {{ form.income_date|as_crispy_field }}
-    </div>
+        {% if form.income_date  %}
+            {{ form.income_date | as_crispy_field }}
+        {% else %}
+            {{ form.expense_date | as_crispy_field }}
+        {% endif %}
 </td>
 <td>
-    <div class="form-group">
         {{ form.amount|as_crispy_field }}
-    </div>
 </td>
 <td>
-    <div class="form-group">
         {{ form.description|as_crispy_field }}
-    </div>
 </td>
 <td>
-    <div class="form-group">
         {{ form.category|as_crispy_field }}
-    </div>
 </td>
-
-
-    

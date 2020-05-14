@@ -22,18 +22,23 @@ function append_row(action) {
             // tds += '<td>' + '<select class="form-control" id="categories'+count_id+'"></select>' + '</td>';
         });
         tds += '</tr>';
-        if ($('tbody', this).length > 0) {
-            $('tbody', this).append(tds);
-        } else {
-            $(this).append(tds);
-        }
-        $('.datepicker').datepicker();
+        $('tbody', this).append(tds);
+        
     });
     // if(categories.length > 0) {
     //     populateSelect(categories, count_id);
     // } else {
         // get_categories(action, count_id);
     //}
+    if(action=='expenses') {
+        if (!$('#sendExpense').length) {
+            $('#formExpense').append('<button type="submit" class="btn btn-primary move-button" id="sendExpense">Guradar</button>')
+        }
+    } else {
+        if (!$('#sendIncome').length) {
+            $('#formIncome').append('<button type="submit" class="btn btn-primary move-button" id="sendIncome">Guradar</button>')
+        }
+    }
 }
 
 function get_categories(action, count_id, obj) {
@@ -42,6 +47,7 @@ function get_categories(action, count_id, obj) {
         data: { 'action': action },
         success: function(data) {
             $(obj).html(data)
+            $('.datepicker').datepicker();
             // if(action=='expenses') {
             //     ex_categories =  data.categories;
             // } else {
@@ -52,11 +58,11 @@ function get_categories(action, count_id, obj) {
     });
 }
 
-function populateSelect(categories, count_id) {
-    $.each(categories, function (index, value) {
-        $('#categories'+count_id).append($('<option/>', { 
-            value: value,
-            text : value 
-        }));
-    });   
-}
+// function populateSelect(categories, count_id) {
+//     $.each(categories, function (index, value) {
+//         $('#categories'+count_id).append($('<option/>', { 
+//             value: value,
+//             text : value 
+//         }));
+//     });   
+// }

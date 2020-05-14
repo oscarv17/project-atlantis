@@ -16,13 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 
-from planner.views import home, BudgetCreateView, budget_view, add_expenses_and_incomes, get_categories
+from planner import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home'),
-    path('new_budget', BudgetCreateView.as_view(), name='new_budget'),
-    path('budget/<int:id>', budget_view, name='budget'),
-    path('add_movement', add_expenses_and_incomes, name='add'),
-    re_path(r'^ajax/get/categories/$', get_categories, name='get_cat')
+    path('', views.home, name='home'),
+    path('new_budget', views.BudgetCreateView.as_view(), name='new_budget'),
+    path('budget/<int:id_>', views.budget_view, name='budget'),
+    path('add_movement/budget/<int:id_>', views.add_expenses_and_incomes, name='add'),
+    re_path(r'^ajax/get/categories/$', views.get_new_element_form, name='get_cat')
 ]

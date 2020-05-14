@@ -18,10 +18,10 @@ MONTHS = {
 
 class CategoryQuerySet(models.QuerySet):
     def get_category_in(self):
-        return self.filter(category_type='in').values_list('name', flat=True)
+        return self.filter(category_type='in')
 
     def get_category_ex(self):
-        return self.filter(category_type='ex').values_list('name', flat=True)
+        return self.filter(category_type='ex')
 
 class Category(models.Model):
     types = [
@@ -34,7 +34,7 @@ class Category(models.Model):
     objects = CategoryQuerySet.as_manager()
 
     def __str__(self):
-        return f'Category: {self.name}, type: {self.category_type}'
+        return f'{self.name}'
 
 class PlannedIncome(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -74,12 +74,18 @@ class Budget(models.Model):
 
     def get_month_name(self):
         return MONTHS.get(self.month)
-    
+           
     def get_planned_expeses(self):
         return self.planned_expense.all()
 
     def get_planned_incomes(self):
         return self.planned_income.all()
+
+    def get_actual_expenses(self):
+        return self.expenses.all()
+
+    def get_actual_incomes(self):
+        return self.incomes.all()
 
     def get_absolute_url(self):
         return reverse('budget', args=[self.id])

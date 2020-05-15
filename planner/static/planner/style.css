@@ -18,7 +18,6 @@
 .move-button {
     background-color: #1ABC9C;
     border-color: #1ABC9C;
-    float: right;
 }
 
 .move-button:hover {

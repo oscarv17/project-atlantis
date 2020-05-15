@@ -43,7 +43,7 @@ function append_row(action) {
 
 function get_categories(action, count_id, obj) {
     $.ajax({
-        url: '/ajax/get/categories/',
+        url: '/manage/movements/',
         data: { 'action': action },
         success: function(data) {
             $(obj).html(data)

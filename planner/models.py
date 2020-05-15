@@ -74,7 +74,7 @@ class Budget(models.Model):
 
     def get_month_name(self):
         return MONTHS.get(self.month)
-           
+
     def get_planned_expeses(self):
         return self.planned_expense.all()
 
@@ -89,3 +89,4 @@ class Budget(models.Model):
 
     def get_absolute_url(self):
         return reverse('budget', args=[self.id])
+        

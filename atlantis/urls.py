@@ -24,5 +24,5 @@ urlpatterns = [
     path('new_budget', views.BudgetCreateView.as_view(), name='new_budget'),
     path('budget/<int:id_>', views.budget_view, name='budget'),
     path('add_movement/budget/<int:id_>', views.add_expenses_and_incomes, name='add'),
-    re_path(r'^ajax/get/categories/$', views.get_new_element_form, name='get_cat')
+    re_path(r'^manage/movements/$', views.add_movement_snippet, name='get_form')
 ]

@@ -1,7 +1,8 @@
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.views.generic import CreateView
+from django.db import models
 
 from .forms import IncomeForm, ExpenseForm
 from .models import Budget
@@ -22,19 +23,12 @@ def budget_view(request, id_):
 
 def add_expenses_and_incomes(request, id_):
     ''' Add expense or income to a budget '''
-    if request.method == 'POST':
-        form = IncomeForm(request.POST)
-        if form.is_valid():
-
-            new_mov = form.save(commit=False)
-            new_mov.save()
-            budget = get_object_or_404(Budget, pk=request.POST.get('id'))
-            new_mov.budget_set.add(budget)
-            form.save_m2m()
-
     budget = get_object_or_404(Budget, pk=id_)
     incomes = budget.get_actual_incomes()
     expenses = budget.get_actual_expenses()
+    total_incomes = Budget.objects.values(
+            'incomes__category__name').annotate(models.Sum('incomes__amount'))
+    print(total_incomes)
     context = {
         'budget_id': budget.id,
         'incomes': incomes,
@@ -42,14 +36,30 @@ def add_expenses_and_incomes(request, id_):
     }
     return render(request, 'planner/add_elements.html', context)
 
-def get_new_element_form(request):
-    form = ExpenseForm(auto_id=False) if request.GET.get('action') == 'expenses' else IncomeForm(auto_id=False)
-    if request.is_ajax() and request.method == 'GET':
+def add_movement_snippet(request):
+    if request.method == 'POST':
+        clazz = _get_form(request.POST.get('action'))
+        print(request.POST.get('action'))
+        budget = get_object_or_404(Budget, pk=request.POST.get('id'))
+        form = clazz(request.POST)
+        if form.is_valid():
+            new_mov = form.save(commit=False)
+            new_mov.save()
+            new_mov.budget_set.add(budget)
+            form.save_m2m()
+        # TODO: manage error
+        print(form.errors)
+        print(request.POST)
+        return redirect('add', id_=budget.id)
+    elif request.is_ajax() and request.method == 'GET':
+        clazz = _get_form(request.GET.get('action'))
+        form = clazz(auto_id=False)
         html = render_to_string('planner/add_element_snippet.html', {'form': form})
         return HttpResponse(html)
-    elif request.method == 'POST':
-        print(request.POST)
     return HttpResponseNotFound("Page not found")
+
+def _get_form(action):
+    return ExpenseForm if action in 'expenses' else IncomeForm
 
 class BudgetCreateView(CreateView):
     model = Budget

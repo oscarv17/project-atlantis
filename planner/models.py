@@ -89,4 +89,18 @@ class Budget(models.Model):
 
     def get_absolute_url(self):
         return reverse('budget', args=[self.id])
-        
+
+    def get_total_incomes(self):
+        totals = Budget.objects.filter(pk=self.id).values(
+                        category_name=models.F('incomes__category__name')).annotate(
+                            amount=models.Sum('incomes__amount'))
+
+        return {val['category_name']: val['amount'] for val in totals}
+
+    def get_total_expenses(self):
+        totals = Budget.objects.filter(pk=self.id).values(
+                        category_name=models.F('expenses__category__name')).annotate(
+                            amount=models.Sum('expenses__amount'))
+                            
+        return {val['category_name']: val['amount'] for val in totals}      
+ 

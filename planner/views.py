@@ -14,11 +14,20 @@ def home(request):
 def budget_view(request, id_):
     ''' Budget detail by month '''
     budget = get_object_or_404(Budget, pk=id_)
+
     month = budget.get_month_name()
     planned_expenses = budget.get_planned_expeses()
     planned_incomes = budget.get_planned_incomes()
+    total_incomes = budget.get_total_incomes()
+    total_expenses = budget.get_total_expenses()
+
     context = {'budget': budget, 'month': month,
-               'planned_expenses': planned_expenses, 'planned_incomes': planned_incomes}
+               'planned_expenses': planned_expenses, 
+               'planned_incomes': planned_incomes,
+               'total_incomes': total_incomes,
+               'total_expenses': total_expenses,
+               }
+
     return render(request, 'planner/budget.html', context)
 
 def add_expenses_and_incomes(request, id_):
@@ -26,9 +35,6 @@ def add_expenses_and_incomes(request, id_):
     budget = get_object_or_404(Budget, pk=id_)
     incomes = budget.get_actual_incomes()
     expenses = budget.get_actual_expenses()
-    total_incomes = Budget.objects.values(
-            'incomes__category__name').annotate(models.Sum('incomes__amount'))
-    print(total_incomes)
     context = {
         'budget_id': budget.id,
         'incomes': incomes,

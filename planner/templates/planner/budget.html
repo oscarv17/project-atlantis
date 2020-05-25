@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
+
 {% load humanize %}
+{% load dict_lookup %}
 
 
 {% block title %}
@@ -31,7 +33,7 @@ Budget
                             <th scope="col">Totales</th>
                             <th scope="col">Previsto</th>
                             <th scope="col">Real</th>
-                            <th scope="col">Dif</th>
+                            <th scope="col">Diferncia</th>
                         </tr>
                     </thead>
                         <tbody>
@@ -39,8 +41,8 @@ Budget
                                 <tr>
                                     <td scope="row">{{ expense.category.name }}</td>
                                     <td>{{ expense.planned_amount | intcomma }}</td>
-                                    <td>{{ total_expenses.expense.category.name }}</td>
-                                    <td>0</td>
+                                    <td>{{ total_expenses | get_item:expense.category.name | intcomma }}</td>
+                                    <td>{{ total_expenses | get_item:expense.category.name | diff:expense.planned_amount | intcomma }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -54,7 +56,7 @@ Budget
                             <th scope="col">Totales</th>
                             <th scope="col">Previsto</th>
                             <th scope="col">Real</th>
-                            <th scope="col">Dif</th>
+                            <th scope="col">Diferncia</th>
                         </tr>
                     </thead>
                         <tbody>
@@ -62,8 +64,8 @@ Budget
                                 <tr>
                                     <td scope="row">{{ income.category.name }}</td>
                                     <td>{{ income.planned_amount | intcomma }}</td>
-                                    <td>{{ total_incomes.Bonificaciones }}</td>
-                                    <td>0</td>
+                                    <td>{{ total_incomes | get_item:income.category.name | intcomma }}</td>
+                                    <td>{{ total_incomes | get_item:income.category.name | diff:income.planned_amount | intcomma }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>

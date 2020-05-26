@@ -18,14 +18,22 @@ def budget_view(request, id_):
     month = budget.get_month_name()
     planned_expenses = budget.get_planned_expeses()
     planned_incomes = budget.get_planned_incomes()
-    total_incomes = budget.get_total_incomes()
-    total_expenses = budget.get_total_expenses()
+    total_incomes_cat = budget.get_total_incomes_by_category()
+    total_expenses_cat = budget.get_total_expenses_by_category()
+    total_planned_expenses = budget.get_total_planned_expenses()
+    total_planned_incomes = budget.get_total_planned_incomes()
+    total_incomes = sum(total_incomes_cat.values())
+    total_expenses = sum(total_expenses_cat.values())
 
     context = {'budget': budget, 'month': month,
-               'planned_expenses': planned_expenses, 
+               'planned_expenses': planned_expenses,
                'planned_incomes': planned_incomes,
+               'total_incomes_cat': total_incomes_cat,
+               'total_expenses_cat': total_expenses_cat,
+               'total_planned_in': total_planned_incomes['amount'],
+               'total_planned_ex': total_planned_expenses['amount'],
                'total_incomes': total_incomes,
-               'total_expenses': total_expenses,
+               'total_expenses': total_expenses
                }
 
     return render(request, 'planner/budget.html', context)

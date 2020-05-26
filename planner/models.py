@@ -90,17 +90,31 @@ class Budget(models.Model):
     def get_absolute_url(self):
         return reverse('budget', args=[self.id])
 
-    def get_total_incomes(self):
-        totals = Budget.objects.filter(pk=self.id).values(
-                        category_name=models.F('incomes__category__name')).annotate(
-                            amount=models.Sum('incomes__amount'))
+    def get_total_incomes_by_category(self):
+        totals = self.incomes.all().values(
+            category_name=models.F('category__name')).annotate(
+                amount=models.Sum('amount'))
+        # Budget.objects.filter(pk=self.id).values(
+        #                 category_name=models.F('incomes__category__name')).annotate(
+        #                     amount=models.Sum('incomes__amount'))
 
         return {val['category_name']: val['amount'] for val in totals}
 
-    def get_total_expenses(self):
-        totals = Budget.objects.filter(pk=self.id).values(
-                        category_name=models.F('expenses__category__name')).annotate(
-                            amount=models.Sum('expenses__amount'))
+    def get_total_expenses_by_category(self):
+        totals = self.expenses.all().values(
+            category_name=models.F('category__name')).annotate(
+                amount=models.Sum('amount'))
+
+        # Budget.objects.filter(pk=self.id).values(
+        #                 # category_name=models.F('expenses__category__name')).annotate(
+        #                     amount=models.Sum('expenses__amount'))
                             
-        return {val['category_name']: val['amount'] for val in totals}      
+        return {val['category_name']: val['amount'] for val in totals}
+
+    def get_total_planned_incomes(self):
+        return self.planned_income.all().aggregate(amount=models.Sum('planned_amount'))
+
+    
+    def get_total_planned_expenses(self):
+        return self.planned_expense.all().aggregate(amount=models.Sum('planned_amount'))
  

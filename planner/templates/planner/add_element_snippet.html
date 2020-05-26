@@ -7,11 +7,14 @@
         {% endif %}
 </td>
 <td>
-        {{ form.amount|as_crispy_field }}
+        {{ form.amount | as_crispy_field }}
 </td>
 <td>
-        {{ form.description|as_crispy_field }}
+        {{ form.description | as_crispy_field }}
 </td>
 <td>
-        {{ form.category|as_crispy_field }}
+        {{ form.category | as_crispy_field }}
+</td>
+<td class="delete-row">
+        <span class="oi oi-x" aria-hidden="true"></span>
 </td>

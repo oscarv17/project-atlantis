@@ -1,8 +1,8 @@
-.jumbotron {
+.principal {
     background-color: #1ABC9C;
 }
 
-.jumbotron > h1 {
+.principal > h1 {
     color: #2E4053;
     font-weight: bold;
 }
@@ -23,4 +23,17 @@
 .move-button:hover {
     background-color: #01A182;
     border-color: #01A182;
+}
+
+.delete-row {
+    cursor: pointer;
+}
+
+.oi-plus, .oi-check, 
+.oi-arrow-thick-left, .oi-task {
+    font-size: 12px;
+}
+
+#expenses, #incomes {
+    table-layout: fixed;
 }

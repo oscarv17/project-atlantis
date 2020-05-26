@@ -10,20 +10,20 @@
 
 
 {% block jumbo %}
-    Agregar Movimiento
+    Agregar Movimiento <span class="oi oi-dollar"></span>
 {% endblock jumbo %}
 
 
 {% block content %}
-    <div class="container-fluid">
+    <div class="container-fluid pb-5">
         <div class="row">
             <div class="col-lg-12">
-                <a name="" id="" class="btn btn-info" href="{% url 'budget' id_=budget_id %}" role="button">Volver</a>
+                <a name="" id="" class="btn btn-info" href="{% url 'budget' id_=budget_id %}" role="button"><i class="oi oi-arrow-thick-left"></i> Volver</a>
             </div>
         </div>
         <div class="row top-buffer">
             <div class="col-lg-6 col-md-6 table-responsive" id="expenseSection">
-                <h3 class="headlines">Gastos</h3>
+                <h3 class="headlines"><strong>Gastos</strong></h3>
                 <form method='POST' id="formExpense" action="{% url 'get_form' %}">
                     <input type="hidden" name="id" value="{{ budget_id }}">
                     <input type="hidden" name="action" value="expense">
@@ -35,7 +35,7 @@
                             <th>Importe</th>
                             <th>Descripcion</th>
                             <th>Categoria</th>
-                            <th></th>
+                            <th>Accion</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -43,21 +43,20 @@
                             {% for expense in expenses %}
                                 <tr>
                                     <td>{{ expense.expense_date }}</td>
-                                    <td>{{ expense.amount | intcomma  }}</td>
+                                    <td>${{ expense.amount | intcomma  }}</td>
                                     <td>{{ expense.description }}</td>
                                     <td>{{ expense.category.name }}</td>
+                                    <td><span class="oi oi-pencil"></span></td>
                                 </tr>
                             {% endfor %}
-                            <tr>
-                        
-                            </tr>
+                            <tr class="new-form"></tr>
                         </tbody>
                 </table>
-                </form>
-                <button type="button" class="btn btn-primary" id="add_expense">Agregar</button>
+                <button type="button" class="btn btn-primary" id="add_expense">Agregar <i class="oi oi-plus"></i></button>
+            </form>
             </div>
             <div class="col-lg-6 col-md-6 table-responsive" id="incomeSection">
-                <h3 class="headlines">Ganancias</h3>
+                <h3 class="headlines"><strong>Ganancias</strong></h3>
                 <form method='POST' id="formIncome" action="{% url 'get_form' %}">
                     {% csrf_token %}
                     <input type="hidden" name="id" value="{{ budget_id }}">
@@ -69,24 +68,25 @@
                             <th>Importe</th>
                             <th>Descripcion</th>
                             <th>Categoria</th>
+                            <th>Accion</th>
                         </tr>
                         </thead>
                         <tbody>
                             {% for income in incomes %}
                             <tr>
                                 <td>{{ income.income_date }}</td>
-                                <td>{{ income.amount | intcomma  }}</td>
+                                <td>${{ income.amount | intcomma  }}</td>
                                 <td>{{ income.description }}</td>
                                 <td>{{ income.category.name }}</td>
+                                <!-- TODO: edit -->
+                                <td><span class="oi oi-pencil"></span></td>
                             </tr>
                             {% endfor %}
-                            <tr>
-                        
-                            </tr>
+                            <tr class="new-form"></tr>
                         </tbody>
                 </table>
-                </form>
-                <button type="button" class="btn btn-primary" id="add_income">Agregar</button>
+                <button type="button" class="btn btn-primary" id="add_income">Agregar <i class="oi oi-plus"></i></button>
+            </form>
             </div>
         </div> 
     </div>

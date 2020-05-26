@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
     <link rel="stylesheet" href="{% static 'planner/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icons/font/css/open-iconic-bootstrap.css' %}">
     <title>{% block title %}{% endblock title %}</title>
 </head>
 
 <body>
-    <div class="jumbotron">
+    <div class="jumbotron principal">
         <h1>{% block jumbo %}{% endblock jumbo %}</h1>
     </div>
 
@@ -27,6 +28,5 @@
     {% block scripts %}{% endblock scripts %}
         
 </body>
-
 </html>
 

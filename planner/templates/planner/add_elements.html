@@ -10,7 +10,8 @@
 
 
 {% block jumbo %}
-    Agregar Movimiento <span class="oi oi-dollar"></span>
+<i class="fas fa-money-bill-wave"></i> Agregar Movimiento
+    <a href="{% url 'home' %}" id="goHome" ><i class="fa fa-home" aria-hidden="true"></i></a>
 {% endblock jumbo %}
 
 
@@ -18,7 +19,7 @@
     <div class="container-fluid pb-5">
         <div class="row">
             <div class="col-lg-12">
-                <a name="" id="" class="btn btn-info" href="{% url 'budget' id_=budget_id %}" role="button"><i class="oi oi-arrow-thick-left"></i> Volver</a>
+                <a name="" id="" class="btn btn-info" href="{% url 'budget' id_=budget_id %}" role="button"><i class="fas fa-arrow-left"></i> Volver</a>
             </div>
         </div>
         <div class="row top-buffer">
@@ -46,13 +47,13 @@
                                     <td>${{ expense.amount | intcomma  }}</td>
                                     <td>{{ expense.description }}</td>
                                     <td>{{ expense.category.name }}</td>
-                                    <td><span class="oi oi-pencil"></span></td>
+                                    <td><i class="fas fa-edit"></i></td>
                                 </tr>
                             {% endfor %}
                             <tr class="new-form"></tr>
                         </tbody>
                 </table>
-                <button type="button" class="btn btn-primary" id="add_expense">Agregar <i class="oi oi-plus"></i></button>
+                <button type="button" class="btn btn-primary" id="add_expense">Agregar <i class="fas fa-plus"></i></button>
             </form>
             </div>
             <div class="col-lg-6 col-md-6 table-responsive" id="incomeSection">
@@ -79,13 +80,13 @@
                                 <td>{{ income.description }}</td>
                                 <td>{{ income.category.name }}</td>
                                 <!-- TODO: edit -->
-                                <td><span class="oi oi-pencil"></span></td>
+                                <td><i class="fas fa-edit"></i></td>
                             </tr>
                             {% endfor %}
                             <tr class="new-form"></tr>
                         </tbody>
                 </table>
-                <button type="button" class="btn btn-primary" id="add_income">Agregar <i class="oi oi-plus"></i></button>
+                <button type="button" class="btn btn-primary" id="add_income">Agregar <i class="fas fa-plus"></i></button>
             </form>
             </div>
         </div> 

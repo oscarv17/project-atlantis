@@ -9,11 +9,12 @@ New Budget
 
 
 {% block jumbo %}
-    Nuevo Presupuesto
+    <i class="fas fa-file-alt"></i> Nuevo Presupuesto
+    <a href="{% url 'home' %}" id="goHome" ><i class="fa fa-home" aria-hidden="true"></i></a>
 {% endblock jumbo %}
     
 {% block content %}
-
+<!-- TODO: Change input names -->
 <div class="container">
     <form method="post">
         {% csrf_token %}

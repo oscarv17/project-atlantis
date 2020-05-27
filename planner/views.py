@@ -9,7 +9,8 @@ from .models import Budget
 
 def home(request):
     ''' Home page '''
-    return render(request, 'planner/home.html')
+    budgets = Budget.objects.all()
+    return render(request, 'planner/home.html', {'budgets': budgets})
 
 def budget_view(request, id_):
     ''' Budget detail by month '''

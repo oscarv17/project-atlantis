@@ -1,7 +1,31 @@
 {% extends 'base.html' %}
+{% load dict_lookup %}
 
+{% block title %}Home{% endblock title %}
+    
 
 {% block jumbo %}
-    Atlantis
+    <i class="fas fa-rocket"></i> Atlantis
 {% endblock jumbo %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <h2 class="headlines">Presupuestos</h2>
+                <div class="list-group list-group-flush">
+                    {% for budget in budgets %}
+                        <a href="{% url 'budget' id_=budget.id %}" class="list-group-item list-group-item-action">{{ budget.month | months }} 2020</a>
+                    {% endfor %}
+                        <a href="{% url 'new_budget' %}" class="list-group-item list-group-item-action"><i class="fas fa-plus-circle"></i> Nuevo presupuesto</a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <h2 class="headlines">Balances</h2>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    
     

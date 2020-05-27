@@ -10,12 +10,13 @@ Budget
 {% endblock title %}
 
 {% block jumbo %}
-    <span class="oi oi-calendar"></span> {{ month }} 2020
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i> {{ month }} 2020
+    <a href="{% url 'home' %}" id="goHome" ><i class="fa fa-home" aria-hidden="true"></i></a>
 {% endblock jumbo %}
     
 
 {% block content %}
-    <div class="container-fluid">
+    <div class="container-fluid pb-5">
         <div class="row">
             <div class="col-lg-6 col-md-6">
                  <h2 class="headlines">Presupuesto mensual</h2>
@@ -30,10 +31,10 @@ Budget
             <div class="col-lg-5 col-md-5">
             </div>
             <div class="col-lg-4 col-md-4 offset-lg-2 offset-md-2 text-center">
-                <div class="jumbotron">
+                <div class="jumbotron saving-month-box">
                     <p class="lead">50%</p>
                     <p>Aumento total</p>
-                    <hr class="my-2">
+                    <hr class="my-4">
                     <p class="lead">$5000</p>
                     <p>Ahorro este mes</p>
                 </div>
@@ -99,7 +100,7 @@ Budget
         </div>
         <div class="row">
             <div class="col-lg-12 text-center">
-                <a class="btn btn-success move-button" href="{% url 'add' id_=budget.id %}" role="button">Agregar movimiento <i class="oi oi-task"></i></a>
+                <a class="btn btn-success move-button" href="{% url 'add' id_=budget.id %}" role="button">Agregar movimiento <i class="fas fa-check"></i></a>
             </div>
         </div>
     </div>

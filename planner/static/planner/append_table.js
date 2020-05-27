@@ -17,10 +17,10 @@ function append_row(action) {
         
     });
     if (!$('#sendExpense').length && action=='expenses') {
-        $('#formExpense').append('<button type="submit" class="btn btn-primary move-button" id="'+getId(action)+'">Guradar <i class="oi oi-check"></i></button>');
+        $('#formExpense').append('<button type="submit" class="btn btn-primary move-button" id="'+getId(action)+'">Guradar  <i class="fas fa-save"></i></button>');
     
     } else if (!$('#sendIncome').length && action=='incomes') {
-        $('#formIncome').append('<button type="submit" class="btn btn-primary move-button" id="'+getId(action)+'">Guradar <i class="oi oi-check"></span></button>');
+        $('#formIncome').append('<button type="submit" class="btn btn-primary move-button" id="'+getId(action)+'">Guradar  <i class="fas fa-save"></i></button>');
     }
 }
 
@@ -34,7 +34,7 @@ function get_categories(action, obj) {
             $('.datepicker').datepicker();
 
             $('.delete-row').on('click', function(){
-                $(this).parent("tr:first").remove();
+                $(this).parents('tr:first').remove();
                 if($('table#'+action+' .new-form').length < 2) {
                     $('#'+getId(action)).remove()
                 }

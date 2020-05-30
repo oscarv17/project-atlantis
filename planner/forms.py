@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from .models import Income, Expense, Category
 
 class IncomeForm(forms.ModelForm):
+    ''' Form to handle Income data '''
     category = forms.ModelChoiceField(queryset=Category.objects.get_category_in(), label='')
 
     class Meta:
@@ -22,6 +23,7 @@ class IncomeForm(forms.ModelForm):
 
 
 class ExpenseForm(forms.ModelForm):
+    ''' Form to handle Expense data '''
     category = forms.ModelChoiceField(queryset=Category.objects.get_category_ex(), label='')
 
     class Meta:

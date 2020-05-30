@@ -2,7 +2,6 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.views.generic import CreateView
-from django.db import models
 
 from .forms import IncomeForm, ExpenseForm
 from .models import Budget
@@ -52,9 +51,10 @@ def add_expenses_and_incomes(request, id_):
     return render(request, 'planner/add_elements.html', context)
 
 def add_movement_snippet(request):
+    ''' Return the form for the income/expenses tables '''
     if request.method == 'POST':
         clazz = _get_form(request.POST.get('action'))
-        print(request.POST.get('action'))
+        print(request.POST.get('edit-id'))
         budget = get_object_or_404(Budget, pk=request.POST.get('id'))
         form = clazz(request.POST)
         if form.is_valid():
@@ -77,6 +77,7 @@ def _get_form(action):
     return ExpenseForm if action in 'expenses' else IncomeForm
 
 class BudgetCreateView(CreateView):
+    ''' Create budget view '''
     model = Budget
     fields = ('month', 'initial_amoumt', 'planned_expense', 'planned_income')
     template_name = 'planner/new_budget.html'

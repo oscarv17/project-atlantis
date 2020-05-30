@@ -42,7 +42,7 @@
                         <tbody>
                             
                             {% for expense in expenses %}
-                                <tr>
+                                <tr id="expense-{{ expense.id }}">
                                     <td>{{ expense.expense_date }}</td>
                                     <td>${{ expense.amount | intcomma  }}</td>
                                     <td>{{ expense.description }}</td>
@@ -74,12 +74,11 @@
                         </thead>
                         <tbody>
                             {% for income in incomes %}
-                            <tr>
+                            <tr id="income-{{ income.id }}">
                                 <td>{{ income.income_date }}</td>
                                 <td>${{ income.amount | intcomma  }}</td>
                                 <td>{{ income.description }}</td>
                                 <td>{{ income.category.name }}</td>
-                                <!-- TODO: edit -->
                                 <td><i class="fas fa-edit"></i></td>
                             </tr>
                             {% endfor %}

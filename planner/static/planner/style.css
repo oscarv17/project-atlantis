@@ -58,3 +58,7 @@
 #goHome:hover {
     color: #222f3e;
 }
+
+.fa-edit {
+    cursor: pointer;
+}
